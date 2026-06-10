@@ -23,7 +23,7 @@
         --coral-800: #991b1b;
         --gray-50: #f9f9fb;
         --gray-100: #e5e5ea;
-        --gray-400: #aeaeB2;
+        --gray-400: #aeaeb2;
         --gray-600: #636366;
         --gray-800: #2c2c2e;
         --blue-50: #f0f7ff;
@@ -86,7 +86,9 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        transition: background 0.2s ease, transform 0.1s ease;
+        transition:
+          background 0.2s ease,
+          transform 0.1s ease;
       }
       .btn-add:hover {
         background: #222222;
@@ -520,7 +522,7 @@
         color: var(--coral-600);
       }
 
-       /* FAB */
+      /* FAB */
       .fab {
         position: fixed;
         bottom: 24px;
@@ -536,7 +538,9 @@
         align-items: center;
         justify-content: center;
         z-index: 100;
-        transition: background 0.2s ease, transform 0.1s ease;
+        transition:
+          background 0.2s ease,
+          transform 0.1s ease;
       }
       .fab:hover {
         background: #222222;
@@ -820,16 +824,32 @@
             line-height: 2;
           "
         ></div>
-        <div style="padding: 0 16px 16px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <div
+          style="
+            padding: 0 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          "
+        >
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
             <button
               class="btn-cancel"
-              style="color: var(--coral-600); border-color: var(--coral-100); width: 100%; margin: 0;"
+              style="
+                color: var(--coral-600);
+                border-color: var(--coral-100);
+                width: 100%;
+                margin: 0;
+              "
               onclick="hapusProduk()"
             >
               Hapus Produk
             </button>
-            <button class="btn-cancel" style="width: 100%; margin: 0;" onclick="tutupModal('modal-detail')">
+            <button
+              class="btn-cancel"
+              style="width: 100%; margin: 0"
+              onclick="tutupModal('modal-detail')"
+            >
               Tutup
             </button>
           </div>
@@ -903,12 +923,17 @@
       // ===== HELPERS & DATA UPGRADE =====
       function getKombinasiList(p) {
         const sizes = p.ukuran || [];
-        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
-        
+        const colors = p.warna
+          ? p.warna
+              .split(",")
+              .map((w) => w.trim())
+              .filter(Boolean)
+          : [];
+
         if (sizes.length > 0 && colors.length > 0) {
           const arr = [];
-          sizes.forEach(u => {
-            colors.forEach(c => {
+          sizes.forEach((u) => {
+            colors.forEach((c) => {
               arr.push(`${u} - ${c}`);
             });
           });
@@ -927,13 +952,13 @@
         }
         const kombiList = getKombinasiList(p);
         let currentSum = 0;
-        kombiList.forEach(k => {
+        kombiList.forEach((k) => {
           if (p.stokDetail[k] === undefined) {
             p.stokDetail[k] = 0;
           }
           currentSum += p.stokDetail[k];
         });
-        
+
         if (currentSum === 0 && p.stok > 0 && kombiList.length > 0) {
           const share = Math.floor(p.stok / kombiList.length);
           const remainder = p.stok % kombiList.length;
@@ -946,7 +971,7 @@
 
       // Upgrade existing data on load to ensure stokDetail exists
       let needsSave = false;
-      produkList.forEach(p => {
+      produkList.forEach((p) => {
         if (!p.stokDetail) {
           getStokDetail(p);
           needsSave = true;
@@ -1042,7 +1067,10 @@
             const stokDetail = getStokDetail(p);
             const kombis = getKombinasiList(p);
             const ukuranHtml = kombis
-              .map((k) => `<span class="size-chip"><b>${k}</b>: ${stokDetail[k] || 0} pcs</span>`)
+              .map(
+                (k) =>
+                  `<span class="size-chip"><b>${k}</b>: ${stokDetail[k] || 0} pcs</span>`,
+              )
               .join("");
             return `<div class="produk-card">
       <div class="produk-card-header" onclick="bukaDetail(${p.id})">
@@ -1165,13 +1193,14 @@
           const idx = produkList.findIndex((p) => p.id === editId);
           const existingP = produkList[idx];
           const oldStokDetail = existingP.stokDetail || {};
-          
+
           const newStokDetail = {};
           let newTotalStok = 0;
-          
+
           const kombis = getKombinasiList({ ukuran, warna });
-          kombis.forEach(k => {
-            newStokDetail[k] = oldStokDetail[k] !== undefined ? oldStokDetail[k] : 0;
+          kombis.forEach((k) => {
+            newStokDetail[k] =
+              oldStokDetail[k] !== undefined ? oldStokDetail[k] : 0;
             newTotalStok += newStokDetail[k];
           });
 
@@ -1201,7 +1230,7 @@
             min,
             ukuran,
             warna,
-            stokDetail: newStokDetail
+            stokDetail: newStokDetail,
           };
         } else {
           const stokDetail = {};
@@ -1213,7 +1242,7 @@
               stokDetail[k] = share + (i === 0 ? remainder : 0);
             });
           } else {
-            kombis.forEach(k => {
+            kombis.forEach((k) => {
               stokDetail[k] = 0;
             });
           }
@@ -1227,7 +1256,7 @@
             min,
             ukuran,
             warna,
-            stokDetail: stokDetail
+            stokDetail: stokDetail,
           });
         }
         simpanData();
@@ -1241,14 +1270,19 @@
         if (!p) return;
         const stokDetail = getStokDetail(p);
         const sizes = p.ukuran || [];
-        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
-        
+        const colors = p.warna
+          ? p.warna
+              .split(",")
+              .map((w) => w.trim())
+              .filter(Boolean)
+          : [];
+
         const uVal = document.getElementById("inp-trx-ukuran").value;
         const cVal = document.getElementById("inp-trx-warna").value;
-        
+
         let label = "Stok saat ini: ";
         let key = "";
-        
+
         if (sizes.length > 0 && colors.length > 0) {
           if (uVal && cVal) {
             key = `${uVal} - ${cVal}`;
@@ -1273,7 +1307,7 @@
         } else {
           label += `${p.stok} pcs`;
         }
-        
+
         document.getElementById("trx-stok-saat-ini").textContent = label;
       }
 
@@ -1290,18 +1324,24 @@
         document.getElementById("inp-trx-ket").value = "";
 
         const sizes = p.ukuran || [];
-        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
+        const colors = p.warna
+          ? p.warna
+              .split(",")
+              .map((w) => w.trim())
+              .filter(Boolean)
+          : [];
 
         // Populate size dropdown
         const sizeSelect = document.getElementById("inp-trx-ukuran");
         const sizeGroup = document.getElementById("trx-ukuran-group");
         if (sizes.length > 0) {
           sizeGroup.style.display = "block";
-          sizeSelect.innerHTML = '<option value="">-- Pilih Ukuran --</option>' +
-            sizes.map(u => `<option value="${u}">${u}</option>`).join("");
+          sizeSelect.innerHTML =
+            '<option value="">-- Pilih Ukuran --</option>' +
+            sizes.map((u) => `<option value="${u}">${u}</option>`).join("");
         } else {
           sizeGroup.style.display = "none";
-          sizeSelect.innerHTML = '';
+          sizeSelect.innerHTML = "";
         }
 
         // Populate color dropdown
@@ -1309,11 +1349,12 @@
         const colorGroup = document.getElementById("trx-warna-group");
         if (colors.length > 0) {
           colorGroup.style.display = "block";
-          colorSelect.innerHTML = '<option value="">-- Pilih Warna --</option>' +
-            colors.map(c => `<option value="${c}">${c}</option>`).join("");
+          colorSelect.innerHTML =
+            '<option value="">-- Pilih Warna --</option>' +
+            colors.map((c) => `<option value="${c}">${c}</option>`).join("");
         } else {
           colorGroup.style.display = "none";
-          colorSelect.innerHTML = '';
+          colorSelect.innerHTML = "";
         }
 
         updateTrxStockLabel();
@@ -1346,10 +1387,15 @@
         const idx = produkList.findIndex((p) => p.id === trxId);
         const p = produkList[idx];
         const stokDetail = getStokDetail(p);
-        
+
         const sizes = p.ukuran || [];
-        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
-        
+        const colors = p.warna
+          ? p.warna
+              .split(",")
+              .map((w) => w.trim())
+              .filter(Boolean)
+          : [];
+
         const ukuranInput = document.getElementById("inp-trx-ukuran").value;
         const warnaInput = document.getElementById("inp-trx-warna").value;
 
@@ -1374,7 +1420,9 @@
 
         if (key) {
           if (trxMode === "keluar" && (stokDetail[key] || 0) < qty) {
-            alert(`Stok ${key} tidak mencukupi! Stok saat ini: ${stokDetail[key] || 0} pcs`);
+            alert(
+              `Stok ${key} tidak mencukupi! Stok saat ini: ${stokDetail[key] || 0} pcs`,
+            );
             return;
           }
           if (stokDetail[key] === undefined) {
@@ -1428,7 +1476,7 @@
 
         const stokDetail = getStokDetail(p);
         const kombis = getKombinasiList(p);
-        
+
         let sizeInputsHtml = "";
         if (kombis.length > 0) {
           sizeInputsHtml = `
@@ -1437,12 +1485,16 @@
                 <span>Stok Per Varian</span>
               </div>
               <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;" id="size-stok-grid">
-                ${kombis.map(k => `
+                ${kombis
+                  .map(
+                    (k) => `
                   <div style="background: var(--gray-50); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                     <span style="font-size: 13px; font-weight: 600; color: var(--text);">${k}</span>
                     <span style="font-size: 13px; font-weight: bold; color: var(--text);">${stokDetail[k] || 0} pcs</span>
                   </div>
-                `).join("")}
+                `,
+                  )
+                  .join("")}
               </div>
             </div>
           `;
