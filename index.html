@@ -6,34 +6,34 @@
     <title>Rekap Stok Celana</title>
     <style>
       :root {
-        --teal-50: #e1f5ee;
-        --teal-100: #9fe1cb;
-        --teal-400: #1d9e75;
-        --teal-600: #0f6e56;
-        --teal-800: #085041;
-        --amber-50: #faeeda;
-        --amber-100: #fac775;
-        --amber-400: #ba7517;
-        --amber-600: #854f0b;
-        --amber-800: #633806;
-        --coral-50: #faece7;
-        --coral-100: #f5c4b3;
-        --coral-400: #d85a30;
-        --coral-600: #993c1d;
-        --coral-800: #712b13;
-        --gray-50: #f1efe8;
-        --gray-100: #d3d1c7;
-        --gray-400: #888780;
-        --gray-600: #5f5e5a;
-        --gray-800: #444441;
-        --blue-50: #e6f1fb;
-        --blue-400: #378add;
-        --blue-800: #0c447c;
-        --bg: #f8f7f4;
+        --teal-50: #eefdf8;
+        --teal-100: #bbf7e3;
+        --teal-400: #10b981;
+        --teal-600: #059669;
+        --teal-800: #065f46;
+        --amber-50: #fffbeb;
+        --amber-100: #fef3c7;
+        --amber-400: #f59e0b;
+        --amber-600: #d97706;
+        --amber-800: #92400e;
+        --coral-50: #fef2f2;
+        --coral-100: #fee2e2;
+        --coral-400: #ef4444;
+        --coral-600: #dc2626;
+        --coral-800: #991b1b;
+        --gray-50: #f9f9fb;
+        --gray-100: #e5e5ea;
+        --gray-400: #aeaeB2;
+        --gray-600: #636366;
+        --gray-800: #2c2c2e;
+        --blue-50: #f0f7ff;
+        --blue-400: #3b82f6;
+        --blue-800: #1d4ed8;
+        --bg: #ffffff;
         --card: #ffffff;
-        --border: rgba(0, 0, 0, 0.08);
-        --text: #1a1a18;
-        --text-muted: #5f5e5a;
+        --border: #e5e5e7;
+        --text: #000000;
+        --text-muted: #666666;
         --radius: 12px;
         --radius-sm: 8px;
       }
@@ -51,12 +51,13 @@
 
       /* HEADER */
       .header {
-        background: var(--teal-600);
-        color: white;
-        padding: 16px 16px 12px;
+        background: #ffffff;
+        color: #000000;
+        padding: 18px 16px 14px;
         position: sticky;
         top: 0;
         z-index: 100;
+        border-bottom: 1px solid var(--border);
       }
       .header-top {
         display: flex;
@@ -71,20 +72,24 @@
       }
       .header-date {
         font-size: 12px;
-        opacity: 0.75;
+        color: var(--text-muted);
       }
       .btn-add {
-        background: var(--teal-400);
+        background: #000000;
         color: white;
         border: none;
         border-radius: var(--radius-sm);
         padding: 8px 14px;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 600;
         cursor: pointer;
         display: flex;
         align-items: center;
         gap: 6px;
+        transition: background 0.2s ease, transform 0.1s ease;
+      }
+      .btn-add:hover {
+        background: #222222;
       }
       .btn-add:active {
         transform: scale(0.97);
@@ -423,17 +428,21 @@
       .btn-primary {
         width: calc(100% - 32px);
         margin: 4px 16px 0;
-        background: var(--teal-600);
+        background: #000000;
         color: white;
         border: none;
         border-radius: var(--radius-sm);
         padding: 13px;
         font-size: 15px;
-        font-weight: 500;
+        font-weight: 600;
         cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .btn-primary:hover {
+        background: #222222;
       }
       .btn-primary:active {
-        background: var(--teal-800);
+        background: #333333;
       }
       .btn-cancel {
         width: calc(100% - 32px);
@@ -511,22 +520,26 @@
         color: var(--coral-600);
       }
 
-      /* FAB */
+       /* FAB */
       .fab {
         position: fixed;
         bottom: 24px;
         right: 20px;
         width: 52px;
         height: 52px;
-        background: var(--teal-600);
+        background: #000000;
         border-radius: 50%;
         border: none;
-        box-shadow: 0 4px 12px rgba(15, 110, 86, 0.35);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 100;
+        transition: background 0.2s ease, transform 0.1s ease;
+      }
+      .fab:hover {
+        background: #222222;
       }
       .fab:active {
         transform: scale(0.94);
@@ -535,22 +548,6 @@
         width: 24px;
         height: 24px;
         stroke: white;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #1a1a18;
-          --card: #252523;
-          --border: rgba(255, 255, 255, 0.08);
-          --text: #f0ede8;
-          --text-muted: #888780;
-        }
-        .search-box input {
-          color: var(--text);
-        }
-        .form-input {
-          color: var(--text);
-        }
       }
     </style>
   </head>
@@ -764,11 +761,20 @@
             min="1"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group" id="trx-ukuran-group">
           <label class="form-label">Ukuran</label>
           <select
             class="form-input"
             id="inp-trx-ukuran"
+            onchange="updateTrxStockLabel()"
+          ></select>
+        </div>
+        <div class="form-group" id="trx-warna-group">
+          <label class="form-label">Warna</label>
+          <select
+            class="form-input"
+            id="inp-trx-warna"
+            onchange="updateTrxStockLabel()"
           ></select>
         </div>
         <div class="form-group">
@@ -815,13 +821,6 @@
           "
         ></div>
         <div style="padding: 0 16px 16px; display: flex; flex-direction: column; gap: 8px;">
-          <button
-            class="btn-primary"
-            style="width: 100%; margin: 0; background: var(--teal-600);"
-            id="btn-edit-produk-detail"
-          >
-            Edit Detail Produk
-          </button>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
             <button
               class="btn-cancel"
@@ -902,24 +901,44 @@
       }
 
       // ===== HELPERS & DATA UPGRADE =====
+      function getKombinasiList(p) {
+        const sizes = p.ukuran || [];
+        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
+        
+        if (sizes.length > 0 && colors.length > 0) {
+          const arr = [];
+          sizes.forEach(u => {
+            colors.forEach(c => {
+              arr.push(`${u} - ${c}`);
+            });
+          });
+          return arr;
+        } else if (sizes.length > 0) {
+          return sizes;
+        } else if (colors.length > 0) {
+          return colors;
+        }
+        return [];
+      }
+
       function getStokDetail(p) {
         if (!p.stokDetail) {
           p.stokDetail = {};
         }
-        const ukuranArr = p.ukuran || [];
+        const kombiList = getKombinasiList(p);
         let currentSum = 0;
-        ukuranArr.forEach(u => {
-          if (p.stokDetail[u] === undefined) {
-            p.stokDetail[u] = 0;
+        kombiList.forEach(k => {
+          if (p.stokDetail[k] === undefined) {
+            p.stokDetail[k] = 0;
           }
-          currentSum += p.stokDetail[u];
+          currentSum += p.stokDetail[k];
         });
         
-        if (currentSum === 0 && p.stok > 0 && ukuranArr.length > 0) {
-          const share = Math.floor(p.stok / ukuranArr.length);
-          const remainder = p.stok % ukuranArr.length;
-          ukuranArr.forEach((u, i) => {
-            p.stokDetail[u] = share + (i === 0 ? remainder : 0);
+        if (currentSum === 0 && p.stok > 0 && kombiList.length > 0) {
+          const share = Math.floor(p.stok / kombiList.length);
+          const remainder = p.stok % kombiList.length;
+          kombiList.forEach((k, i) => {
+            p.stokDetail[k] = share + (i === 0 ? remainder : 0);
           });
         }
         return p.stokDetail;
@@ -1021,8 +1040,9 @@
                   ? "Hampir Habis"
                   : "Habis";
             const stokDetail = getStokDetail(p);
-            const ukuranHtml = (p.ukuran || [])
-              .map((u) => `<span class="size-chip"><b>${u}</b>: ${stokDetail[u] || 0} pcs</span>`)
+            const kombis = getKombinasiList(p);
+            const ukuranHtml = kombis
+              .map((k) => `<span class="size-chip"><b>${k}</b>: ${stokDetail[k] || 0} pcs</span>`)
               .join("");
             return `<div class="produk-card">
       <div class="produk-card-header" onclick="bukaDetail(${p.id})">
@@ -1148,25 +1168,27 @@
           
           const newStokDetail = {};
           let newTotalStok = 0;
-          ukuran.forEach(u => {
-            newStokDetail[u] = oldStokDetail[u] !== undefined ? oldStokDetail[u] : 0;
-            newTotalStok += newStokDetail[u];
+          
+          const kombis = getKombinasiList({ ukuran, warna });
+          kombis.forEach(k => {
+            newStokDetail[k] = oldStokDetail[k] !== undefined ? oldStokDetail[k] : 0;
+            newTotalStok += newStokDetail[k];
           });
 
           // Check if total stock was changed manually in the input field
           let finalStok = existingP.stok;
           if (stok !== existingP.stok) {
             finalStok = stok;
-            // Distribute the new total stock among sizes
-            if (ukuran.length > 0) {
-              const share = Math.floor(finalStok / ukuran.length);
-              const remainder = finalStok % ukuran.length;
-              ukuran.forEach((u, i) => {
-                newStokDetail[u] = share + (i === 0 ? remainder : 0);
+            // Distribute the new total stock among combinations
+            if (kombis.length > 0) {
+              const share = Math.floor(finalStok / kombis.length);
+              const remainder = finalStok % kombis.length;
+              kombis.forEach((k, i) => {
+                newStokDetail[k] = share + (i === 0 ? remainder : 0);
               });
             }
           } else {
-            // Keep the sum of existing size stocks
+            // Keep the sum of existing combination stocks
             finalStok = newTotalStok;
           }
 
@@ -1183,15 +1205,16 @@
           };
         } else {
           const stokDetail = {};
-          if (ukuran.length > 0 && stok > 0) {
-            const share = Math.floor(stok / ukuran.length);
-            const remainder = stok % ukuran.length;
-            ukuran.forEach((u, i) => {
-              stokDetail[u] = share + (i === 0 ? remainder : 0);
+          const kombis = getKombinasiList({ ukuran, warna });
+          if (kombis.length > 0 && stok > 0) {
+            const share = Math.floor(stok / kombis.length);
+            const remainder = stok % kombis.length;
+            kombis.forEach((k, i) => {
+              stokDetail[k] = share + (i === 0 ? remainder : 0);
             });
           } else {
-            ukuran.forEach(u => {
-              stokDetail[u] = 0;
+            kombis.forEach(k => {
+              stokDetail[k] = 0;
             });
           }
 
@@ -1213,6 +1236,47 @@
       }
 
       // ===== TRANSAKSI =====
+      function updateTrxStockLabel() {
+        const p = produkList.find((x) => x.id === trxId);
+        if (!p) return;
+        const stokDetail = getStokDetail(p);
+        const sizes = p.ukuran || [];
+        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
+        
+        const uVal = document.getElementById("inp-trx-ukuran").value;
+        const cVal = document.getElementById("inp-trx-warna").value;
+        
+        let label = "Stok saat ini: ";
+        let key = "";
+        
+        if (sizes.length > 0 && colors.length > 0) {
+          if (uVal && cVal) {
+            key = `${uVal} - ${cVal}`;
+            label += `${stokDetail[key] || 0} pcs`;
+          } else {
+            label += `${p.stok} pcs (pilih ukuran & warna)`;
+          }
+        } else if (sizes.length > 0) {
+          if (uVal) {
+            key = uVal;
+            label += `${stokDetail[key] || 0} pcs`;
+          } else {
+            label += `${p.stok} pcs (pilih ukuran)`;
+          }
+        } else if (colors.length > 0) {
+          if (cVal) {
+            key = cVal;
+            label += `${stokDetail[key] || 0} pcs`;
+          } else {
+            label += `${p.stok} pcs (pilih warna)`;
+          }
+        } else {
+          label += `${p.stok} pcs`;
+        }
+        
+        document.getElementById("trx-stok-saat-ini").textContent = label;
+      }
+
       function bukaTrx(id, mode) {
         trxId = id;
         trxMode = mode;
@@ -1220,25 +1284,39 @@
         document.getElementById("trx-title").textContent =
           mode === "masuk" ? "⬆ Stok Masuk" : "⬇ Stok Keluar";
         document.getElementById("trx-produk-nama").textContent = p.nama;
-        document.getElementById("trx-stok-saat-ini").textContent =
-          "Stok saat ini: " + p.stok + " pcs";
         document.getElementById("trx-icon-el").className =
           "trx-icon " + (mode === "masuk" ? "masuk-icon" : "keluar-icon");
         document.getElementById("inp-trx-qty").value = "";
         document.getElementById("inp-trx-ket").value = "";
 
+        const sizes = p.ukuran || [];
+        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
+
         // Populate size dropdown
         const sizeSelect = document.getElementById("inp-trx-ukuran");
-        const stokDetail = getStokDetail(p);
-        
-        if (p.ukuran && p.ukuran.length > 0) {
-          sizeSelect.disabled = false;
+        const sizeGroup = document.getElementById("trx-ukuran-group");
+        if (sizes.length > 0) {
+          sizeGroup.style.display = "block";
           sizeSelect.innerHTML = '<option value="">-- Pilih Ukuran --</option>' +
-            p.ukuran.map(u => `<option value="${u}">${u} (Stok: ${stokDetail[u] || 0} pcs)</option>`).join("");
+            sizes.map(u => `<option value="${u}">${u}</option>`).join("");
         } else {
-          sizeSelect.disabled = true;
-          sizeSelect.innerHTML = '<option value="">Tidak ada ukuran</option>';
+          sizeGroup.style.display = "none";
+          sizeSelect.innerHTML = '';
         }
+
+        // Populate color dropdown
+        const colorSelect = document.getElementById("inp-trx-warna");
+        const colorGroup = document.getElementById("trx-warna-group");
+        if (colors.length > 0) {
+          colorGroup.style.display = "block";
+          colorSelect.innerHTML = '<option value="">-- Pilih Warna --</option>' +
+            colors.map(c => `<option value="${c}">${c}</option>`).join("");
+        } else {
+          colorGroup.style.display = "none";
+          colorSelect.innerHTML = '';
+        }
+
+        updateTrxStockLabel();
 
         const hist = historiList
           .filter((h) => h.produkId === id)
@@ -1268,22 +1346,41 @@
         const idx = produkList.findIndex((p) => p.id === trxId);
         const p = produkList[idx];
         const stokDetail = getStokDetail(p);
+        
+        const sizes = p.ukuran || [];
+        const colors = p.warna ? p.warna.split(",").map(w => w.trim()).filter(Boolean) : [];
+        
         const ukuranInput = document.getElementById("inp-trx-ukuran").value;
+        const warnaInput = document.getElementById("inp-trx-warna").value;
 
-        if (p.ukuran && p.ukuran.length > 0 && !ukuranInput) {
+        if (sizes.length > 0 && !ukuranInput) {
           alert("Pilih ukuran terlebih dahulu!");
           return;
         }
+        if (colors.length > 0 && !warnaInput) {
+          alert("Pilih warna terlebih dahulu!");
+          return;
+        }
 
-        if (ukuranInput) {
-          if (trxMode === "keluar" && (stokDetail[ukuranInput] || 0) < qty) {
-            alert(`Stok ukuran ${ukuranInput} tidak mencukupi! Stok saat ini: ${stokDetail[ukuranInput] || 0} pcs`);
+        // Get key for stokDetail
+        let key = "";
+        if (sizes.length > 0 && colors.length > 0) {
+          key = `${ukuranInput} - ${warnaInput}`;
+        } else if (sizes.length > 0) {
+          key = ukuranInput;
+        } else if (colors.length > 0) {
+          key = warnaInput;
+        }
+
+        if (key) {
+          if (trxMode === "keluar" && (stokDetail[key] || 0) < qty) {
+            alert(`Stok ${key} tidak mencukupi! Stok saat ini: ${stokDetail[key] || 0} pcs`);
             return;
           }
-          if (stokDetail[ukuranInput] === undefined) {
-            stokDetail[ukuranInput] = 0;
+          if (stokDetail[key] === undefined) {
+            stokDetail[key] = 0;
           }
-          stokDetail[ukuranInput] += trxMode === "masuk" ? qty : -qty;
+          stokDetail[key] += trxMode === "masuk" ? qty : -qty;
           p.stok = Object.values(stokDetail).reduce((sum, val) => sum + val, 0);
         } else {
           if (trxMode === "keluar" && p.stok < qty) {
@@ -1293,12 +1390,21 @@
           p.stok += trxMode === "masuk" ? qty : -qty;
         }
 
+        let variantInfo = "-";
+        if (ukuranInput && warnaInput) {
+          variantInfo = `${ukuranInput} · ${warnaInput}`;
+        } else if (ukuranInput) {
+          variantInfo = ukuranInput;
+        } else if (warnaInput) {
+          variantInfo = warnaInput;
+        }
+
         historiList.push({
           id: idBaru(),
           produkId: trxId,
           mode: trxMode,
           qty,
-          ukuran: ukuranInput || "-",
+          ukuran: variantInfo,
           ket: document.getElementById("inp-trx-ket").value.trim(),
           waktu: new Date().toLocaleDateString("id-ID"),
         });
@@ -1321,39 +1427,29 @@
           .reduce((a, h) => a + h.qty, 0);
 
         const stokDetail = getStokDetail(p);
+        const kombis = getKombinasiList(p);
         
         let sizeInputsHtml = "";
-        if (p.ukuran && p.ukuran.length > 0) {
+        if (kombis.length > 0) {
           sizeInputsHtml = `
             <div style="margin-top: 16px; border-top: 0.5px solid var(--border); padding-top: 14px;">
               <div style="font-weight: 600; margin-bottom: 10px; font-size: 13px; color: var(--text); display: flex; justify-content: space-between; align-items: center;">
-                <span>Atur Stok Per Ukuran</span>
-                <span style="font-size: 11px; font-weight: normal; color: var(--text-muted);">Masukkan angka stok langsung</span>
+                <span>Stok Per Varian</span>
               </div>
               <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;" id="size-stok-grid">
-                ${p.ukuran.map(u => `
+                ${kombis.map(k => `
                   <div style="background: var(--gray-50); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                    <span style="font-size: 13px; font-weight: 600; color: var(--text);">Size ${u}</span>
-                    <input 
-                      type="number" 
-                      class="form-input size-stok-input" 
-                      data-size="${u}" 
-                      value="${stokDetail[u] || 0}" 
-                      min="0" 
-                      style="width: 70px; padding: 4px 6px; font-size: 13px; text-align: center; background: var(--card);" 
-                    />
+                    <span style="font-size: 13px; font-weight: 600; color: var(--text);">${k}</span>
+                    <span style="font-size: 13px; font-weight: bold; color: var(--text);">${stokDetail[k] || 0} pcs</span>
                   </div>
                 `).join("")}
               </div>
-              <button class="btn-primary" style="width: 100%; margin: 12px 0 0 0; padding: 10px;" onclick="simpanStokDetail(${p.id})">
-                Update Stok Ukuran
-              </button>
             </div>
           `;
         } else {
           sizeInputsHtml = `
             <div style="margin-top: 16px; border-top: 0.5px solid var(--border); padding-top: 14px; color: var(--text-muted); font-size: 12px; text-align: center;">
-              Tidak ada ukuran yang tersedia. Silakan edit produk untuk menambahkan ukuran.
+              Tidak ada varian ukuran/warna yang tersedia.
             </div>
           `;
         }
@@ -1373,52 +1469,7 @@
           ${sizeInputsHtml}
         `;
 
-        document.getElementById("btn-edit-produk-detail").onclick = function() {
-          tutupModal("modal-detail");
-          bukaModalTambah(p.id);
-        };
-
         bukaModal("modal-detail");
-      }
-
-      function simpanStokDetail(id) {
-        const p = produkList.find((x) => x.id === id);
-        if (!p) return;
-        
-        const grid = document.getElementById("size-stok-grid");
-        if (!grid) return;
-        const inputs = grid.querySelectorAll(".size-stok-input");
-        
-        const newStokDetail = {};
-        let totalStok = 0;
-        
-        inputs.forEach(input => {
-          const size = input.getAttribute("data-size");
-          const val = parseInt(input.value) || 0;
-          newStokDetail[size] = val;
-          totalStok += val;
-        });
-        
-        const diff = totalStok - p.stok;
-        if (diff !== 0) {
-          historiList.push({
-            id: idBaru(),
-            produkId: p.id,
-            mode: diff > 0 ? "masuk" : "keluar",
-            qty: Math.abs(diff),
-            ukuran: "Semua",
-            ket: "Penyesuaian Stok Ukuran",
-            waktu: new Date().toLocaleDateString("id-ID"),
-          });
-        }
-        
-        p.stokDetail = newStokDetail;
-        p.stok = totalStok;
-        
-        simpanData();
-        tutupModal("modal-detail");
-        render();
-        alert("Stok ukuran berhasil diperbarui!");
       }
 
       function hapusProduk() {
